@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registration</title>
+</head>
+<body>
+	<input type="text" name="name" id="name">
+	<select id="gender">
+		<option value="">--</option>
+		<option value="male">M</option>
+		<option value="female">F</option>
+	</select>
+	<input type="text" name="email" id="email">
+	<input type="text" name="mobile" id="mobile">
+	<hr>
+	<h1 id="dName">NAME</h1>
+	<h2 id="dGender">GENDER</h2>
+	<h3 id="dEmail">EMAIL</h3>
+	<h4 id="dMobile">MOBILE</h4>
+	<hr>
+	<button onclick="showInfo('dName', 'name')">NAME</button>
+	<button onclick="showInfo('dGender', 'gender')">GENDER</button>
+	<button onclick="showInfo('dEmail', 'email')">EMAIL</button>
+	<button onclick="showInfo('dMobile', 'mobile')">MOBILE</button>
+	<button onclick="resetForm()">RESET FORM</button>
+	<button onclick="resetDisplay()">RESET DISPLAY</button>
+	<script type="text/javascript">
+		function showInfo(displayId, inputId) {
+			const display = document.getElementById(displayId);
+			const input = document.getElementById(inputId);
+			display.textContent = input.value;
+		}
+
+		function resetForm() {
+			document.getElementById("name").value = "";
+			document.getElementById("gender").selectedIndex = 0;
+			document.getElementById("email").value = "";
+			document.getElementById("mobile").value = "";
+		}
+
+		function resetDisplay() {
+			document.getElementById("dName").textContent = "NAME";
+			document.getElementById("dGender").textContent = "GENDER";
+			document.getElementById("dEmail").textContent = "EMAIL";
+			document.getElementById("dMobile").textContent = "MOBILE";
+		}
+	</script>
+</body>
+</html>
