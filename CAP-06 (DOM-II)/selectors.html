@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Practise Selectors</title>
+  </head>
+  <body>
+    <h1 id="h1_1">First H1</h1>
+    <h1 id="h1_2">Second H1</h1>
+    <h3 class="h3">First H3</h3>
+    <h3 class="h3">Second H3</h3>
+    <h5 class="h5">First H5</h5>
+    <h5 class="h5">Second H5</h5>
+    <h5 class="h5">Third H5</h5>
+    <div class="green">First DIV</div>
+    <div class="red">Second DIV</div>
+    <div class="blue">Third DIV</div>
+    <p class="green">First P</p>
+    <p class="red">Second P</p>
+    <p class="blue">Third P</p>
+    <hr />
+    <button onClick="changeH1()">Change H1</button>
+    <button onClick="changeH3()">Change H3</button>
+    <button onClick="changeH5()">Change H5</button>
+    <button onClick="changeGreen()">Change Green</button>
+    <button onClick="changeRed()">Change Red</button>
+    <button onClick="changeBlue()">Change Blue</button>
+    <script>
+      function changeH1() {
+        document.getElementById("h1_1").style.color = "red";
+      }
+
+      function changeH3() {
+        var h3Elements = document.getElementsByClassName("h3");
+        for (var i = 0; i < h3Elements.length; i++) {
+          h3Elements[i].style.color = "green";
+        }
+      }
+
+      function changeH5() {
+        var h5Elements = document.getElementsByClassName("h5");
+        for (var i = 0; i < h5Elements.length; i++) {
+          h5Elements[i].style.color = "blue";
+        }
+      }
+
+      function changeGreen() {
+        var greenElements = document.getElementsByClassName("green");
+        for (var i = 0; i < greenElements.length; i++) {
+          greenElements[i].style.color = "green";
+        }
+      }
+
+      function changeRed() {
+        var redElements = document.getElementsByClassName("red");
+        for (var i = 0; i < redElements.length; i++) {
+          redElements[i].style.color = "red";
+        }
+      }
+
+      function changeBlue() {
+        var blueElements = document.getElementsByClassName("blue");
+        for (var i = 0; i < blueElements.length; i++) {
+          blueElements[i].style.color = "blue";
+        }
+      }
+    </script>
+  </body>
+</html>

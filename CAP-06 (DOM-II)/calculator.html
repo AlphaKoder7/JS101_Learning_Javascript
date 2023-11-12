@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #btn, #operators, #equal {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 1.5em;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:active {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="display"></h1>
+    <div id="btn">
+        <button>0</button>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+    </div>
+    <div id="clear">
+        <button>C</button>
+    <div id="operators">
+        <button>+</button>
+        <button>-</button>
+        <button>*</button>
+        <button>/</button>
+    </div>
+    <button id="equal">=</button>
+</body>
+</html>
+
+<script>
+    let keypad = document.querySelectorAll('#btn > button');
+    let operators = document.querySelectorAll('#operators > button');
+    let head = document.getElementById("display");
+    let IsFirstNumber = true;
+    let opt = "";
+
+    let firstNumber ="";
+    let secondNumber ="";
+    let equal =document.getElementById("equal");
+    let clearButton = document.getElementById("clear");
+
+    clearButton.addEventListener('click', function () 
+        {
+            clearCalculator();
+        })
+
+    equal.addEventListener('click',function()
+    {
+        head.innerText = calculate(firstNumber,secondNumber,opt); 
+    })
+
+    for (let i = 0; i < keypad.length; i++)
+    {
+        keypad[i].addEventListener('click', function()
+        {
+            if(IsFirstNumber == true)
+            {
+                firstNumber += keypad[i].innerText 
+                head.innerText = firstNumber;
+            }
+            else{
+                secondNumber += keypad [i].innerText
+                head.innerText = secondNumber;
+                }
+        })
+    }
+
+    for (let i=0; i < operators.length; i++)
+    {
+        operators[i].addEventListener('click',function()
+        {
+            IsFirstNumber =false;
+            opt =operators[i].innerText;
+        })
+    }
+
+    function calculate(firstNumber,secondNumber,opt)
+    {
+        switch(opt)
+        {
+            case "+":
+            return Number(firstNumber) + Number(secondNumber);
+            case "-":
+            return Number(firstNumber) - Number(secondNumber);
+            case "*":
+            return Number(firstNumber) * Number(secondNumber);
+            case "/":
+            return Number(firstNumber) / Number(secondNumber);
+
+        }
+    }
+
+    
+</script>
