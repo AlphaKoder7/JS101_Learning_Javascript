@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: grid;
+            grid-template-rows: repeat(4, 1fr);
+            grid-gap: 10px;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .minmax {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 10px;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            background-color: #f0f0f0;
+            padding: 10px;
+        }
+
+        #min, #max {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #score {
+            text-align: center;
+            font-size: 24px;
+        }
+
+        div {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button {
+            font-size: 20px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        button:last-child {
+            grid-column: span 3;
+        }
+    </style>
+</head>
+<body>
+    <div class="minmax">
+        <div id="min">Min</div>
+        <div id="max">Max</div>
+    </div>
+    <h2 id="score">Score #</h2>
+    <div>
+        <button onclick="updateScore(1)">1</button>
+        <button onclick="updateScore(2)">2</button>
+        <button onclick="updateScore(3)">3</button>
+        <button onclick="updateScore(4)">4</button>
+        <button onclick="updateScore(5)">5</button>
+        <button onclick="updateScore(6)">6</button>
+        <button onclick="updateScore(7)">7</button>
+        <button onclick="updateScore(8)">8</button>
+        <button onclick="updateScore(9)">9</button>
+        <button onclick="updateScore(0)">0</button>
+        <button onclick="enterScore()">Enter</button>
+    </div>
+
+    <script>
+        let currentScore = '';
+
+        function updateScore(number) {
+            currentScore += number;
+            document.getElementById('score').textContent = 'Score ' + currentScore;
+        }
+
+        function enterScore() {
+            const currentScoreValue = parseInt(currentScore);
+
+            const minElement = document.getElementById('min');
+            const maxElement = document.getElementById('max');
+
+            const currentMin = parseInt(minElement.textContent);
+            const currentMax = parseInt(maxElement.textContent);
+
+            if (isNaN(currentMin) || currentScoreValue < currentMin) {
+                minElement.textContent = currentScoreValue;
+            }
+
+            if (isNaN(currentMax) || currentScoreValue > currentMax) {
+                maxElement.textContent = currentScoreValue;
+            }
+
+            currentScore = '';
+            document.getElementById('score').textContent = 'Score #';
+        }
+    </script>
+</body>
+</html>
