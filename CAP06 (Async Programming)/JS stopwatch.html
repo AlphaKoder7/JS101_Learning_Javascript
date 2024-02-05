@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #time {
+            font-size: 2em;
+            margin: 20px;
+        }
+
+        #controls {
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            font-size: 1em;
+            margin: 0 10px;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="time">00:00:00</div>
+
+<div id="controls">
+    <button onclick="startStopwatch()">Start</button>
+    <button onclick="pauseStopwatch()">Pause</button>
+    <button onclick="resetStopwatch()">Reset</button>
+</div>
+
+<script>
+    let stopwatch;
+    let startTime;
+    let elapsedTime = 0;
+    let timerRunning = false;
+
+    async function startStopwatch() {
+        if (!timerRunning) {
+            startTime = Date.now() - elapsedTime;
+            stopwatch = setInterval(updateTime, 1000);
+            timerRunning = true;
+        }
+    }
+
+    function pauseStopwatch() {
+        if (timerRunning) {
+            clearInterval(stopwatch);
+            elapsedTime = Date.now() - startTime;
+            timerRunning = false;
+        }
+    }
+
+    function resetStopwatch() {
+        clearInterval(stopwatch);
+        timerRunning = false;
+        elapsedTime = 0;
+        updateTime();
+    }
+
+    function updateTime() {
+        const currentTime = Date.now();
+        const totalSeconds = Math.floor((currentTime - startTime) / 1000) + elapsedTime;
+        const formattedTime = formatTime(totalSeconds);
+        document.getElementById('time').innerText = formattedTime;
+    }
+
+    function formatTime(totalSeconds) {
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        const formattedHours = hours > 0 ? padZero(hours) + ':' : '';
+        const formattedMinutes = minutes > 0 ? padZero(minutes) + ':' : '';
+        const formattedSeconds = padZero(seconds);
+
+        return formattedHours + formattedMinutes + formattedSeconds;
+    }
+
+    function padZero(number) {
+        return number < 10 ? '0' + number : number;
+    }
+</script>
+
+</body>
+</html>

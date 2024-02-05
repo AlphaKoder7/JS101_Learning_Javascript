@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #time {
+            font-size: 2em;
+            margin: 20px;
+        }
+
+        #inputs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 60px;
+            font-size: 1em;
+            padding: 5px;
+            margin: 0 10px;
+            text-align: center;
+        }
+
+        #controls {
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            font-size: 1em;
+            margin: 0 10px;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="inputs">
+    <input type="number" id="hours" placeholder="Hours">
+    <input type="number" id="minutes" placeholder="Minutes">
+    <input type="number" id="seconds" placeholder="Seconds">
+</div>
+
+<div id="time">00:00:00</div>
+
+<div id="controls">
+    <button onclick="startTimer()">Start</button>
+    <button onclick="pauseTimer()">Pause</button>
+    <button onclick="resetTimer()">Reset</button>
+</div>
+
+<script>
+    let timer;
+    let totalSeconds;
+    let currentSeconds;
+    let timerRunning = false;
+
+    async function startTimer() {
+        if (!timerRunning) {
+            totalSeconds = calculateTotalSeconds();
+            currentSeconds = totalSeconds;
+            await updateAsyncTime();
+        }
+    }
+
+    function pauseTimer() {
+        clearTimeout(timer);
+        timerRunning = false;
+    }
+
+    function resetTimer() {
+        clearTimeout(timer);
+        timerRunning = false;
+        document.getElementById('hours').value = '';
+        document.getElementById('minutes').value = '';
+        document.getElementById('seconds').value = '';
+        updateTime();
+    }
+
+    async function updateAsyncTime() {
+        const hours = Math.floor(currentSeconds / 3600);
+        const minutes = Math.floor((currentSeconds % 3600) / 60);
+        const seconds = currentSeconds % 60;
+
+        const formattedHours = padZero(hours);
+        const formattedMinutes = padZero(minutes);
+        const formattedSeconds = padZero(seconds);
+
+        document.getElementById('time').innerText = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+
+        if (currentSeconds === 0) {
+            timerRunning = false;
+        } else {
+            currentSeconds--;
+            timer = setTimeout(updateAsyncTime, 1000);
+        }
+    }
+
+    function calculateTotalSeconds() {
+        const hours = parseInt(document.getElementById('hours').value) || 0;
+        const minutes = parseInt(document.getElementById('minutes').value) || 0;
+        const seconds = parseInt(document.getElementById('seconds').value) || 0;
+
+        return hours * 3600 + minutes * 60 + seconds;
+    }
+
+    function padZero(number) {
+        return number < 10 ? '0' + number : number;
+    }
+</script>
+
+</body>
+</html>
