@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stopwatch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .stopwatch {
+            text-align: center;
+        }
+        .display {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+        }
+        .buttons button {
+            font-size: 1rem;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="stopwatch">
+    <div class="display" id="display">00:00:00.00</div>
+    <div class="buttons">
+        <button onclick="startStopwatch()">Start</button>
+        <button onclick="pauseStopwatch()">Pause</button>
+        <button onclick="resetStopwatch()">Reset</button>
+    </div>
+</div>
+
+<script>
+    let startTime = 0;
+    let elapsedTime = 0;
+    let timerInterval;
+    let isRunning = false;
+
+    function updateDisplay(time) {
+        const hours = Math.floor(time / 3600000);
+        const minutes = Math.floor((time % 3600000) / 60000);
+        const seconds = Math.floor((time % 60000) / 1000);
+        const milliseconds = Math.floor((time % 1000) / 10);
+
+        const formattedTime = 
+            (hours > 0 ? hours.toString().padStart(2, '0') + ':' : '') +
+            (minutes > 0 ? minutes.toString().padStart(2, '0') + ':' : '') +
+            seconds.toString().padStart(2, '0') + '.' +
+            milliseconds.toString().padStart(2, '0');
+
+        document.getElementById("display").innerText = formattedTime;
+    }
+
+    function startStopwatch() {
+        if (!isRunning) {
+            startTime = Date.now() - elapsedTime;
+            timerInterval = setInterval(() => {
+                elapsedTime = Date.now() - startTime;
+                updateDisplay(elapsedTime);
+            }, 10);
+            isRunning = true;
+        }
+    }
+
+    function pauseStopwatch() {
+        if (isRunning) {
+            clearInterval(timerInterval);
+            isRunning = false;
+        }
+    }
+
+    function resetStopwatch() {
+        clearInterval(timerInterval);
+        elapsedTime = 0;
+        isRunning = false;
+        document.getElementById("display").innerText = "00:00:00.00";
+    }
+</script>
+
+</body>
+</html>
